@@ -34,14 +34,7 @@ tabs.forEach(tab => {
     });
 });
 
-// Xử lý tìm kiếm
-document.querySelector('.search-container button').addEventListener('click', () => {
-    const searchInput = document.querySelector('.search-container input').value;
-    console.log(`Tìm kiếm: ${searchInput}`);
-    // Thực hiện hành động tìm kiếm và cập nhật dữ liệu trong bảng
-});
 // Hàm thêm vào bảng
-
 document.addEventListener("DOMContentLoaded", function () {
     // Các đoạn mã có sẵn vẫn giữ nguyên ở đây
 

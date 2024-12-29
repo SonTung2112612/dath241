@@ -25,10 +25,6 @@
         <div class="header-top">
             <button id="openFormBtn">Đăng nhập</button>
         </div>
-        <div class="search-container">
-            <input type="text" placeholder="Tìm kiếm">
-            <button>Tìm kiếm</button>
-        </div>
     </header>
 
     <main>
@@ -54,6 +50,7 @@
                 </thead>
                 <tbody>
                     <!-- Dữ liệu sẽ được thêm từ file CSV -->
+
                 </tbody>
             </table>
             <button id="addRowBtn" class="add-btn">Thêm hàng mới</button>
@@ -64,7 +61,6 @@
         <div class="form-header">
             <button class="tab-link" onclick="openTab(event, 'login')" id="defaultTab">Đăng nhập</button>
             <button class="tab-link" onclick="openTab(event, 'register')">Đăng ký</button>
-            <button class="tab-link" onclick="openTab(event, 'forgotPassword')">Quên mật khẩu ?</button>
             <span class="close-btn" onclick="closeForm()">&times;</span>
         </div>
 
@@ -73,7 +69,6 @@
                 <input type="text" placeholder="Tài khoản" required>
                 <input type="password" placeholder="Mật khẩu" required>
                 <button type="submit" class="btn red">Đăng nhập</button>
-                <button type="button" class="btn blue">Đăng nhập bằng Facebook</button>
             </form>
         </div>
 
@@ -87,12 +82,6 @@
             </form>
         </div>
 
-        <div class="tab-content" id="forgotPassword">
-            <form>
-                <input type="email" placeholder="Email" required>
-                <button type="submit" class="btn red">Khôi phục mật khẩu</button>
-            </form>
-        </div>
     </div>
     <!-- Form để thêm hàng mới -->
     <div id="addRowForm" class="form-container">
