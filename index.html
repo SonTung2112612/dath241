@@ -53,13 +53,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Dữ liệu sẽ được thêm từ file CSV -->
+                    <!-- Dữ liệu sẽ được thêm từ API -->
                 </tbody>
             </table>
             <button id="addRowBtn" class="add-btn">Thêm hàng mới</button>
         </div>
     </main>
     <div class="pagination"></div>
+    <div id="editCustomerForm" class="form-container">
+        <div class="form-header">
+            <h3>Chỉnh sửa thông tin khách hàng</h3>
+            <span class="close-btn" onclick="closeEditForm()">&times;</span>
+        </div>
+        <form id="editForm">
+            <input type="text" id="editFirstName" placeholder="First Name" required>
+            <input type="text" id="editLastName" placeholder="Last Name" required>
+            <input type="email" id="editEmailAddress" placeholder="Email Address" required>
+            <input type="text" id="editAddressLine1" placeholder="Address Line 1" required>
+            <input type="text" id="editCity" placeholder="City" required>
+            <input type="text" id="editStateProvinceName" placeholder="State Province" required>
+            <input type="text" id="editPostalCode" placeholder="Postal Code" required>
+            <button type="submit" class="btn blue">Cập nhật</button>
+        </form>
+    </div>    
     <div class="form-container" id="formContainer">
         <div class="form-header">
             <button class="tab-link" onclick="openTab(event, 'login')" id="defaultTab">Đăng nhập</button>

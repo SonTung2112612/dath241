@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", function () {
+    fetchCustomers();
+});
+
 document.getElementById('openFormBtn').addEventListener('click', function () {
     document.getElementById('formContainer').style.display = 'block';
 });
@@ -153,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
         tableBody.appendChild(tr);
     }
 });
+/*
 document.addEventListener("DOMContentLoaded", function () {
     const csvPath = "data.csv"; // Đường dẫn đến file CSV
     const rowsPerPage = 10; // Số hàng mỗi trang
@@ -161,6 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let dataRows = []; // Dữ liệu từ CSV
 
     // Hàm tải và phân tích dữ liệu CSV
+    
     fetch(csvPath)
         .then(response => response.text())
         .then(text => {
@@ -173,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
             renderPagination(currentPage, totalPages); // Tạo phân trang
         })
         .catch(error => console.error("Error:", error));
-
+    
     // Hàm hiển thị dữ liệu của trang hiện tại
     function loadPageData(page) {
         const tableBody = document.querySelector("#dataTable tbody");
@@ -375,6 +381,10 @@ document.addEventListener("click", function (e) {
         renderPagination(page, 10); // Thay 10 bằng tổng số trang thực tế
     }
 });
+*/
+document.addEventListener("DOMContentLoaded", function () {
+    fetchCustomers();
+});
 
 // Hàm mô phỏng tải dữ liệu trang
 function loadPageData(page) {
@@ -386,3 +396,114 @@ function loadPageData(page) {
 document.addEventListener("DOMContentLoaded", () => {
     renderPagination(1, 10); // Thay 10 bằng tổng số trang thực tế
 });
+
+// Kết nối API
+const API_BASE_URL = "http://127.0.0.1:8000/api";
+
+function addCustomer(data) {
+    fetch("http://127.0.0.1:8000/api/addCustomer", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log("Customer added:", result);
+        fetchCustomers(); // Tải lại danh sách khách hàng
+    })
+    .catch(error => console.error("Error adding customer:", error));
+}
+
+function fetchCustomers() {
+    fetch("http://127.0.0.1:8000/api/getCustomer")
+        .then(response => response.json())
+        .then(data => {
+            console.log("Customers:", data);
+            renderCustomers(data); // Hàm để hiển thị dữ liệu trên HTML
+        })
+        .catch(error => console.error("Error fetching customers:", error));
+}
+
+function deleteCustomer(customerId) {
+    fetch(`http://127.0.0.1:8000/api/deleteCustomer/${customerId}`, {
+        method: "DELETE",
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log("Customer deleted:", result);
+        fetchCustomers(); // Tải lại danh sách khách hàng
+    })
+    .catch(error => console.error("Error deleting customer:", error));
+}
+
+function updateCustomer(customerId, updatedData) {
+    fetch(`${API_BASE_URL}/updateCustomer/${customerId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedData),
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log("Customer updated successfully:", result);
+        fetchCustomers(); // Tải lại danh sách khách hàng
+        closeEditForm();  // Đóng form chỉnh sửa
+    })
+    .catch(error => console.error("Error updating customer:", error));
+}
+
+
+function renderCustomers(customers) {
+    const tableBody = document.querySelector("#dataTable tbody");
+    tableBody.innerHTML = ""; // Xóa dữ liệu cũ
+
+    customers.forEach(customer => {
+        const row = `
+            <tr>
+                <td>${customer.BusinessEntityID}</td>
+                <td>${customer.PersonType}</td>
+                <td>${customer.NameStyle}</td>
+                <td>${customer.FirstName}</td>
+                <td>${customer.LastName}</td>
+                <td>${customer.EmailAddress}</td>
+                <td>${customer.AddressLine1}</td>
+                <td>${customer.City}</td>
+                <td>${customer.StateProvinceName}</td>
+                <td>${customer.PostalCode}</td>
+                <td>
+                    <button onclick="deleteCustomer(${customer.BusinessEntityID})">Xóa</button>
+                    <button onclick="editCustomer(${customer.BusinessEntityID})">Sửa</button>
+                </td>
+            </tr>
+        `;
+        tableBody.insertAdjacentHTML("beforeend", row);
+    });
+}
+
+
+function editCustomer(customerId) {
+    document.getElementById('editCustomerForm').style.display = 'block'; // Hiển thị form chỉnh sửa
+
+    // Lấy thông tin khách hàng hiện tại
+    fetch(`${API_BASE_URL}/getCustomer/${customerId}`)
+        .then(response => response.json())
+        .then(customer => {
+            // Điền dữ liệu vào form
+            document.getElementById('editFirstName').value = customer.FirstName;
+            document.getElementById('editLastName').value = customer.LastName;
+            document.getElementById('editEmailAddress').value = customer.EmailAddress;
+            document.getElementById('editAddressLine1').value = customer.AddressLine1;
+            document.getElementById('editCity').value = customer.City;
+            document.getElementById('editStateProvinceName').value = customer.StateProvinceName;
+            document.getElementById('editPostalCode').value = customer.PostalCode;
+        });
+}
+
+function closeEditForm() {
+    document.getElementById('editCustomerForm').style.display = 'none';
+}
+
+
