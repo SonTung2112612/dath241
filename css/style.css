@@ -119,7 +119,7 @@ th:nth-child(12) {
     width: 20%; /* CountryRegionName */
 }
 th:nth-child(13) {
-    width: 22%; /* Demographics */
+    width: 22%; /* PostalCode */
 }
 th:nth-child(14) {
     width: 10%; /* ActionAction */

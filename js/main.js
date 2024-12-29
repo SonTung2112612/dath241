@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("City").value,
             document.getElementById("StateProvinceName").value,
             document.getElementById("CountryRegionName").value,
-            document.getElementById("Demographics").value
+            document.getElementById("PostalCode").value
         ];
 
         // Thêm dữ liệu vào bảng
@@ -90,13 +90,13 @@ document.addEventListener("DOMContentLoaded", function () {
             row.forEach((col, colIndex) => {
                 const td = document.createElement("td");
         
-                if (colIndex === row.length - 1) { // Cột Demographics
+                if (colIndex === row.length - 1) { // Cột PostalCode
                     const link = document.createElement("a");
-                    link.textContent = "See demographics";
+                    link.textContent = "See postalCode";
                     link.href = "#";
                     link.addEventListener("click", function (e) {
                         e.preventDefault();
-                        alert(`Demographics: ${col}`);
+                        alert(`PostalCode: ${col}`);
                     });
                     td.appendChild(link);
                 } else {
@@ -232,13 +232,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     td.addEventListener("mouseout", function () {
                         td.removeAttribute("title");
                     });
-                } else if (colIndex === row.length - 1) { // Cột Demographics
+                } else if (colIndex === row.length - 1) { // Cột PostalCode
                     const link = document.createElement("a");
-                    link.textContent = "See demographics";
+                    link.textContent = "See Postalcode";
                     link.href = "#";
                     link.addEventListener("click", function (e) {
                         e.preventDefault();
-                        alert(`Demographics: ${col.replace(/\"/g, "").trim()}`);
+                        alert(`PostalCode: ${col.replace(/\"/g, "").trim()}`);
                     });
                     td.appendChild(link);
                 } else {    
